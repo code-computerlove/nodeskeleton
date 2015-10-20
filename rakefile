@@ -1,0 +1,27 @@
+require 'net/ftp'
+require 'rubygems'
+require 'bundler/setup'
+require 'rubygems/package_task'
+
+task :default => [:build, :test]
+
+desc 'Install dependencies and build the application'
+task :build do
+	`npm install`
+end
+
+desc 'Run unit tests'
+task :test do
+	sh %{JUNIT_REPORT_PATH=report.xml JUNIT_REPORT_STACK=1 ./node_modules/mocha/bin/mocha --recursive tests/. --reporter mocha-jenkins-reporter}
+	raise 'Unit tests failed' unless $?.success?
+end
+
+desc 'Deploy to development environment'
+task :deploy_dev do
+	sh %{pm2 deploy development}
+end
+
+desc 'Deploy to production environment'
+task :deploy do
+	sh %{pm2 deploy production}
+end
