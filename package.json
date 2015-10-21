@@ -1,7 +1,7 @@
 {
-  "name": "<<NAME>>",
+  "name": "[[PROJECT_NAME]]",
   "version": "1.0.0",
-  "description": "<<NAME>>",
+  "description": "[[PROJECT_NAME]]",
   "main": "index.js",
   "dependencies": {
     "restify": "^3.0.3"
